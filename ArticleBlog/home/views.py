@@ -1,0 +1,7 @@
+from django.shortcuts import render, HttpResponse
+
+# Create your views here.
+
+def home(request):
+    txt = "sss"
+    return render(request, 'home/home.html', context={"txt": txt})

@@ -5,7 +5,7 @@
 
   <head>
 
-    {% include "includes/head.html" %}
+    {% include "includes/head_refrences.html" %}
 
   </head>
 
@@ -26,6 +26,7 @@
 
     <!-- Page Content -->
     <!-- Banner Starts Here -->
+    {% block banner %}
     <div class="main-banner header-text">
       <div class="container-fluid">
         <div class="owl-banner owl-carousel">
@@ -128,9 +129,10 @@
         </div>
       </div>
     </div>
+    {% endblock %}
     <!-- Banner Ends Here -->
 
-
+    {% block content %}
     <section class="blog-posts">
       <div class="container">
         <div class="row">
@@ -258,6 +260,7 @@
         </div>
       </div>
     </section>
+    {% endblock %}
 
     <!-- Footer -->
     {% include "includes/footer.html" %}
