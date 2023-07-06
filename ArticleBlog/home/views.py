@@ -1,7 +1,10 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render
+from django.views.generic import ListView
+from blog.models import Article
 
-# Create your views here.
+
 
 def home(request):
-    txt = "sss"
-    return render(request, 'home/home.html', context={"txt": txt})
+    articles = Article.objects.all()
+    recent_articles = Article.objects.order_by("-created")[:3]
+    return render(request, "home/home.html", context={"articles": articles, "recent_articles":recent_articles})

@@ -1,6 +1,99 @@
 {% extends "base.html" %}
 {% load static %}
 
+
 {% block content %}
-    {{ txt }}
+<div class="main-banner header-text">
+    <div class="container-fluid">
+      <div class="owl-banner owl-carousel">
+
+        {% for article in articles %}
+            <div class="item">
+            <img height="400 px" src="{{ article.image.url }}" alt="">
+            <div class="item-content">
+                <div class="main-content">
+                <div class="meta-category">
+                    <span>Fashion</span>
+                </div>
+                <a href="post-details.html"><h4>{{ article.title }}</h4></a>
+                <ul class="post-info">
+                    <li><a href="#">{{ article.author }}</a></li>
+                    <li><a href="#">{{ article.updated }}</a></li>
+                    <li><a href="#">12 Comments</a></li>
+                </ul>
+                </div>
+            </div>
+            </div>
+        {% endfor %}
+
+      </div>
+    </div>
+  </div>
+  <!-- Banner Ends Here -->
+
+  <section class="blog-posts">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8">
+          <div class="all-blog-posts">
+            <div class="row">
+
+              <div class="col-lg-12">
+                
+                {% for article in recent_articles %}
+
+                    <div class="blog-post">
+                  <div class="blog-thumb">
+                    <img src="{{ article.image.url }}" alt="">
+                  </div>
+                  <div class="down-content">
+                    <span>Lifestyle</span>
+                    <a href="post-details.html"><h4>{{ article.title }}</h4></a>
+                    <ul class="post-info">
+                      <li><a href="#">{{ article.author }}</a></li>
+                      <li><a href="#">{{ article.updated }}</a></li>
+                      <li><a href="#">12 Comments</a></li>
+                    </ul>
+                    <p>{{ article.body }}</p>
+                    <div class="post-options">
+                      <div class="row">
+                        <div class="col-6">
+                          <ul class="post-tags">
+                            <li><i class="fa fa-tags"></i></li>
+                            <li><a href="#">Beauty</a>,</li>
+                            <li><a href="#">Nature</a></li>
+                          </ul>
+                        </div>
+                        <div class="col-6">
+                          <ul class="post-share">
+                            <li><i class="fa fa-share-alt"></i></li>
+                            <li><a href="#">Facebook</a>,</li>
+                            <li><a href="#"> Twitter</a></li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                    </div>
+
+                {% endfor %}
+              
+              </div>
+
+              <div class="col-lg-12">
+                <div class="main-button">
+                  <a href="blog.html">View All Posts</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          
+          {% include "includes/sidebar.html" %}
+
+        </div>
+      </div>
+    </div>
+  </section>
 {% endblock %}

@@ -1,12 +1,12 @@
 from django.db import models
 from django.template.defaultfilters import slugify
-from django.contrib.auth.models import User
+from account.models import Profile
 
 
 
 class Category(models.Model):
     title = models.CharField(max_length=50, unique=True)
-    slug = models.CharField(max_length=50, unique=True)
+    slug = models.CharField(max_length=50, unique=True, editable=False)
 
     def __str__(self):
         return self.title
@@ -19,12 +19,14 @@ class Category(models.Model):
 
 class Article(models.Model):
     title = models.CharField(max_length=50, unique=True)
-    slug = models.CharField(max_length=50, unique=True)
+    slug = models.CharField(max_length=50, unique=True, editable=False)
     body = models.TextField()
     image = models.ImageField(upload_to="images/articles")
+    created = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    updated = models.DateTimeField(auto_now=True, null=True, blank=True)
 
     category = models.ManyToManyField(Category, related_name="articles")
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="articles")
+    author = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="articles")
 
     def __str__(self):
         return self.title

@@ -1,4 +1,5 @@
 from django.urls import path
+from . import views
 
 
 
@@ -6,5 +7,5 @@ from django.urls import path
 app_name = "blog"
 
 urlpatterns = [
-    # path(),
+    path("all_articles", views.ArticlesListView.as_view(), name="all-articles"),
 ]

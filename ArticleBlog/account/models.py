@@ -14,11 +14,11 @@ class Profile(models.Model):
     phone_number = models.CharField(max_length=11, null=True, blank=True)
     image = models.ImageField(upload_to="images/profiles")
     nickname = models.CharField(max_length=30, unique=True)
-    slug = models.CharField(max_length=30, unique=True)
+    slug = models.CharField(max_length=30, unique=True, editable=False)
 
     def __str__(self):
         return self.nickname
     
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.title)
+        self.slug = slugify(self.nickname)
         super(Profile, self).save(*args, **kwargs)
