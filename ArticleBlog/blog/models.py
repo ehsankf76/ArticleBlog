@@ -1,6 +1,6 @@
 from django.db import models
 from django.template.defaultfilters import slugify
-from account.models import Profile
+from account.models import Author
 from django.urls import reverse
 
 
@@ -27,7 +27,7 @@ class Article(models.Model):
     updated = models.DateTimeField(auto_now=True, null=True, blank=True)
 
     category = models.ManyToManyField(Category, related_name="articles")
-    author = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="articles")
+    author = models.ForeignKey(Author, on_delete=models.CASCADE, related_name="articles")
 
     def __str__(self):
         return self.title
