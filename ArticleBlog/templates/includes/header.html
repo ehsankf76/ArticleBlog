@@ -26,6 +26,18 @@
             <li class="nav-item">
               <a class="nav-link" href="contact.html">Contact Us</a>
             </li>
+
+            {% if request.user.is_authenticated %}
+              <li class="nav-item">
+                <a href="{% url 'account:logout' %}" class="p-1 bg-danger text-white rounded">logout</a>
+              </li>
+            {% else %}
+              <li class="nav-item">
+                <a href="{% url 'account:login' %}" class="p-1 bg-success text-white rounded">login</a><span> /</span>
+                <a href="#" class="p-1 bg-warning text-white rounded">register</a>
+              </li>
+            {% endif %}
+
           </ul>
         </div>
       </div>
