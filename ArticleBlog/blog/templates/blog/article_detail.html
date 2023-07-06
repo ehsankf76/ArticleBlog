@@ -35,8 +35,8 @@
                         <span>{% for cat in object.category.all %}{{ cat }}{% if cat != object.category.last %}-{% endif %}{% endfor %}</span>
                         <a href="post-details.html"><h4>{{ object.title }}</h4></a>
                         <ul class="post-info">
-                          <li><a href="#">{{ object.author }}</a></li>
-                          <li><a href="#">{{ object.updated }}</a></li>
+                          <li><a href="{% url 'blog:author-articles' object.author.slug %}">{{ object.author }}</a></li>
+                          <li><a href="#">last update: {{ object.updated }}</a></li>
                           <li><a href="#">10 Comments</a></li>
                         </ul>
 

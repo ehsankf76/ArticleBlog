@@ -18,7 +18,7 @@
                 <a href="{{ article.get_absolute_url }}"><h4>{{ article.title }}</h4></a>
                 <ul class="post-info">
                     <li><a href="#">{{ article.author }}</a></li>
-                    <li><a href="#">{{ article.updated }}</a></li>
+                    <li><a href="#">last update: {{ article.updated }}</a></li>
                     <li><a href="#">12 Comments</a></li>
                 </ul>
                 </div>
@@ -51,7 +51,7 @@
                     <a href="{{ article.get_absolute_url }}"><h4>{{ article.title }}</h4></a>
                     <ul class="post-info">
                       <li><a href="#">{{ article.author }}</a></li>
-                      <li><a href="#">{{ article.updated }}</a></li>
+                      <li><a href="#">last update: {{ article.updated }}</a></li>
                       <li><a href="#">12 Comments</a></li>
                     </ul>
                     <p>{{ article.body }}</p>

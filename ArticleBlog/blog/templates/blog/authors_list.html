@@ -28,36 +28,19 @@
               <div class="all-blog-posts">
                 <div class="row">
 
-                    {% for article in object_list %}
+                    {% for author in object_list %}
                         <div class="col-lg-6">
                             <div class="blog-post">
                             <div class="blog-thumb">
-                                <img height="350 px" src="{{ article.image.url }}" alt="">
+                                <img height="350 px" src="{{ author.image.url }}" alt="">
                             </div>
-                            <div class="down-content">
-                                <span>{% for cat in article.category.all %}{{ cat }}{% if cat != article.category.last %}-{% endif %}{% endfor %}</span>
-                                <a href="{{ article.get_absolute_url }}"><h4>{{ article.title }}</h4></a>
-                                <ul class="post-info">
-                                <li><a href="{% url 'blog:author-articles' article.author.slug %}">{{ article.author }}</a></li>
-                                <li><a>last update: {{ article.updated }}</a></li>
-                                <li><a>12 Comments</a></li>
-                                </ul>
-                                <p>{{ article.body }}</p>
-                                <div class="post-options">
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                    <ul class="post-tags">
-                                        <li><i class="fa fa-tags"></i></li>
-
-                                        {% for cat in article.category.all %}
-                                            <li><a href="{% url 'blog:category-list' cat.slug %}">{{ cat }}</a>{% if cat != article.category.last %},{% endif %}</li>
-                                        {% endfor %}
-
+                                <div class="down-content">
+                                    <a href="{% url 'blog:author-articles' author.slug %}"><h4>{{ author.nickname }}</h4></a>
+                                    <ul class="post-info">
+                                    <li><a>Name: {{ author.first_name }}{{ author.last_name }}</a></li>
+                                    <li><a>Number of articles: {{ author.articles.all.count }}</a></li>
                                     </ul>
-                                    </div>
                                 </div>
-                                </div>
-                            </div>
                             </div>
                         </div>
                     {% endfor %}
