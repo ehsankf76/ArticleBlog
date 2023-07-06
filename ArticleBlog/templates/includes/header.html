@@ -9,7 +9,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
-            <li class="nav-item active">
+            <li class="nav-item {% if request.resolver_match.url_name == 'home'%}active{% endif %}">
               <a class="nav-link" href="{% url 'home:home' %}">Home
                 <span class="sr-only">(current)</span>
               </a>
@@ -17,10 +17,10 @@
             <li class="nav-item">
               <a class="nav-link" href="about.html">About Us</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item {% if request.resolver_match.url_name == 'all-articles' %}active{% endif %}">
               <a class="nav-link" href="{% url 'blog:all-articles' %}">All Articles</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item {% if request.resolver_match.url_name == 'all-authors' %}active{% endif %}">
               <a class="nav-link" href="{% url 'blog:all-authors' %}">Authors</a>
             </li>
             <li class="nav-item">
