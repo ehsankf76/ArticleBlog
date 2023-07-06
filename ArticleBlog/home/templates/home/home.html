@@ -13,9 +13,9 @@
             <div class="item-content">
                 <div class="main-content">
                 <div class="meta-category">
-                    <span>Fashion</span>
+                    <span>{% for cat in article.category.all %}{{ cat }}{% if cat != article.category.last %}-{% endif %}{% endfor %}</span>
                 </div>
-                <a href="post-details.html"><h4>{{ article.title }}</h4></a>
+                <a href="{{ article.get_absolute_url }}"><h4>{{ article.title }}</h4></a>
                 <ul class="post-info">
                     <li><a href="#">{{ article.author }}</a></li>
                     <li><a href="#">{{ article.updated }}</a></li>
@@ -47,8 +47,8 @@
                     <img src="{{ article.image.url }}" alt="">
                   </div>
                   <div class="down-content">
-                    <span>Lifestyle</span>
-                    <a href="post-details.html"><h4>{{ article.title }}</h4></a>
+                    <span>{% for cat in article.category.all %}{{ cat }}{% if cat != article.category.last %}-{% endif %}{% endfor %}</span>
+                    <a href="{{ article.get_absolute_url }}"><h4>{{ article.title }}</h4></a>
                     <ul class="post-info">
                       <li><a href="#">{{ article.author }}</a></li>
                       <li><a href="#">{{ article.updated }}</a></li>
@@ -82,7 +82,7 @@
 
               <div class="col-lg-12">
                 <div class="main-button">
-                  <a href="blog.html">View All Posts</a>
+                  <a href="{% url 'blog:all-articles' %}">View All Posts</a>
                 </div>
               </div>
             </div>
