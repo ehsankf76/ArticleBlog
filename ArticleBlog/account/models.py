@@ -12,7 +12,7 @@ class Author(models.Model):
     last_name = models.CharField(max_length=50)
     email = models.EmailField(null=True, blank=True)
     phone_number = models.CharField(max_length=11, null=True, blank=True)
-    image = models.ImageField(upload_to="images/Authors")
+    image = models.FileField(upload_to="images/Authors")
     nickname = models.CharField(max_length=30, unique=True)
     slug = models.CharField(max_length=30, unique=True, editable=False)
 
