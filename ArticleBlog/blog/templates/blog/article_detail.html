@@ -49,7 +49,7 @@
                                 <li><i class="fa fa-tags"></i></li>
 
                                 {% for cat in object.category.all %}
-                                <li><a href="#">{{ cat }}</a>{% if cat != object.category.last %},{% endif %}</li>
+                                <li><a href="{% url 'blog:category-list' cat.slug %}">{{ cat }}</a>{% if cat != object.category.last %},{% endif %}</li>
                                 {% endfor %}
 
                               </ul>

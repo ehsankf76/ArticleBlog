@@ -1,7 +1,10 @@
-from django.shortcuts import render
-from django.views.generic import ListView, DetailView
+from typing import Any
+from django.shortcuts import render, redirect
+from django.views.generic import ListView, DetailView, FormView
+from .forms import AddArticleForm
 from .models import Article, Category
 from account.models import Author
+from django.http import Http404, HttpRequest, HttpResponse
 
 
 
@@ -46,3 +49,28 @@ def AuthorListView(request):
 
 class ArticleDetailView(DetailView):
     model = Article
+
+
+
+class AddArticleView(FormView):
+    template_name = "blog/add_article.html"
+    form_class = AddArticleForm
+    success_url = "home:home"
+
+    def get(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect(self.success_url)
+    
+        form = self.form_class
+        return render(request, self.template_name, {"form": form})
+
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST, request.FILES)
+        if form.is_valid():
+            article = form.save(commit=False)
+            article.author = request.user.author
+            article.save()
+            form.save_m2m()
+            return redirect(self.success_url)
+
+        return render(request, self.template_name, {"form": form})

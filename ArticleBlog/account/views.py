@@ -15,7 +15,7 @@ def Login(request):
     if request.method == "POST":
         form = LoginForm(request.POST)
         if form.is_valid():
-            user = User.objects.get(username=form.cleaned_data.get('username'))
+            user = User.objects.get(username=form.cleaned_data.get("username"))
             login(request, user)
             return redirect("home:home")
     else:
@@ -39,8 +39,7 @@ def Register(request):
         form_author = RegisterFormAuthor(request.POST, request.FILES)
         if form_user.is_valid() and form_author.is_valid():
             # form_user
-            user = form_user.save(commit=False)
-            user.save()
+            user = form_user.save()
 
             # form_author
             author = form_author.save(commit=False)

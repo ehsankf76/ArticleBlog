@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Register</title>
+	<title>Add Article</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
@@ -44,63 +44,38 @@
 					</span>
 
 					<span class="login100-form-title p-b-34 p-t-27">
-						Register
+						Add Article
 					</span>
 
-					<p>{{ form_user.errors }}</p>
-					<p>{{ form_author.errors }}</p>
-					
-					<p class="bg-primary text-white rounded" style="width: 5rem;">username:</p>
+					<p>{{ form.errors }}</p>
+
+                    <p class="bg-primary text-white rounded" style="width: 2rem;">title:</p>
 					<div class="wrap-input100 validate-input" data-validate = "Enter username">
-						{{ form_user.username }}
-						<span class="focus-input100" data-placeholder="&#xf207;"></span>
+						{{ form.title }}
+						<span class="focus-input100" data-placeholder="&#xf110;"></span>
 					</div>
 					
-					<p class="bg-primary text-white rounded" style="width: 5rem;">password:</p>
-					<div class="wrap-input100 validate-input" data-validate="Enter password">
-						{{ form_user.password }}
-						<span class="focus-input100" data-placeholder="&#xf191;"></span>
-					</div>
-					
-					<p class="bg-primary text-white rounded" style="width: 5rem;">First name:</p>
+                    <p class="bg-primary text-white rounded" style="width: 4.5rem;">category:</p>
                     <div class="wrap-input100 validate-input">
-						{{ form_author.first_name }}
-						<span class="focus-input100" data-placeholder="&#xF106;"></span>
+						{{ form.category }}
+						<span class="focus-input100"></span>
+					</div>
+
+                    <p class="bg-primary text-white rounded" style="width: 2rem;">text:</p>
+					<div class="wrap-input100 validate-input">
+						{{ form.body }}
+						<span class="focus-input100" data-placeholder="&#xf109;"></span>
 					</div>
 					
-					<p class="bg-primary text-white rounded" style="width: 5rem;">Last name:</p>
+                    <p class="bg-primary text-white rounded" style="width: 3rem;">Image:</p>
                     <div class="wrap-input100 validate-input">
-						{{ form_author.last_name }}
-						<span class="focus-input100" data-placeholder="&#xF106;"></span>
-					</div>
-					
-					<p class="bg-primary text-white rounded" style="width: 3rem;">email:</p>
-                    <div class="wrap-input100 validate-input">
-						{{ form_author.email }}
-						<span class="focus-input100" data-placeholder="&#xF200;"></span>
-					</div>
-					
-					<p class="bg-primary text-white rounded" style="width: 7rem;">Phone number:</p>
-                    <div class="wrap-input100 validate-input">
-						{{ form_author.phone_number }}
-						<span class="focus-input100" data-placeholder="&#xF202;"></span>
-					</div>
-					
-					<p class="bg-primary text-white rounded" style="width: 3rem;">Image:</p>
-                    <div class="wrap-input100 validate-input">
-						{{ form_author.image }}
+						{{ form.image }}
 						<span class="focus-input100" data-placeholder="&#xF140;"></span>
-					</div>
-					
-					<p class="bg-primary text-white rounded" style="width: 5rem;">Nickname:</p>
-                    <div class="wrap-input100 validate-input">
-						{{ form_author.nickname }}
-						<span class="focus-input100" data-placeholder="&#xF400;"></span>
 					</div>
 
 					<div class="container-login100-form-btn">
 						<button class="login100-form-btn">
-							Register
+							Submit
 						</button>
 					</div>
 

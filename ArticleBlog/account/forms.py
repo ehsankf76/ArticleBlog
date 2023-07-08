@@ -11,9 +11,9 @@ class LoginForm(forms.Form):
     password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'input100'}))
 
     def clean_password(self):
-        user = authenticate(username=self.cleaned_data.get('username'), password=self.cleaned_data.get('password'))
+        user = authenticate(username=self.cleaned_data.get("username"), password=self.cleaned_data.get("password"))
         if user is not None:
-            return self.cleaned_data.get('password')
+            return self.cleaned_data.get("password")
         raise ValidationError("username or password is wrong", code="invalid_info")
 
 
@@ -27,6 +27,13 @@ class RegisterFormUser(ModelForm):
             'username': Textarea(attrs={'class': 'input100'}),
             'password': forms.PasswordInput(attrs={'class': 'input100'}),
         }
+
+    def save(self, commit=True):
+        user = super(RegisterFormUser, self).save(commit=False)
+        user.set_password(self.cleaned_data["password"])
+        if commit:
+            user.save()
+        return user
 
 
 

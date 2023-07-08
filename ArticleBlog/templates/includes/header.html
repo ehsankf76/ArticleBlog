@@ -14,9 +14,6 @@
                 <span class="sr-only">(current)</span>
               </a>
             </li> 
-            <li class="nav-item">
-              <a class="nav-link" href="about.html">About Us</a>
-            </li>
             <li class="nav-item {% if request.resolver_match.url_name == 'all-articles' %}active{% endif %}">
               <a class="nav-link" href="{% url 'blog:all-articles' %}">All Articles</a>
             </li>
@@ -34,12 +31,15 @@
                   <a class="nav-link" href="/admin">Admin page</a>
                 </li>
               {% endif %}
-
-            <li class="nav-item">{{ user.author.nickname }}</li>
-            <img width="40 px" height="40 px" class="rounded-circle shadow-4-strong" src="{{ user.author.image.url }}" alt="">
               <li class="nav-item">
-                <a href="{% url 'account:logout' %}" class="p-1 bg-danger text-white rounded">logout</a>
+                <a class="nav-link" href="{% url 'blog:add-article' %}">Add Article</a>
               </li>
+
+              <li class="nav-item">{{ user.author.nickname }}</li>
+              <img width="40 px" height="40 px" class="rounded-circle shadow-4-strong" src="{{ user.author.image.url }}" alt="">
+                <li class="nav-item">
+                  <a href="{% url 'account:logout' %}" class="p-1 bg-danger text-white rounded">logout</a>
+                </li>
             {% else %}
               <li class="nav-item">
                 <a href="{% url 'account:login' %}" class="p-1 bg-success text-white rounded">login</a><span> /</span>
