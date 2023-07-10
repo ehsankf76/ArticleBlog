@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load social_share %}
 
 {% block content %}
     <!-- Page Content -->
@@ -58,8 +59,9 @@
                             <div class="col-6">
                               <ul class="post-share">
                                 <li><i class="fa fa-share-alt"></i></li>
-                                <li><a href="#">Facebook</a>,</li>
-                                <li><a href="#"> Twitter</a></li>
+                                <li><a href="#">{% post_to_facebook object_or_url "Facebook" %}</a></li>
+                                <li>,</li>
+                                <li><a href="#">{% post_to_twitter "Check this article: {{object.title}}" object_or_url "Twitter" %}</a></li>
                               </ul>
                             </div>
                           </div>
