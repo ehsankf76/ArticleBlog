@@ -1,14 +1,14 @@
-from typing import Any
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView, DetailView, FormView
 from .forms import AddArticleForm, EditArticleForm
 from .models import Article, Category
 from account.models import Author
-from django.http import Http404, HttpRequest, HttpResponse
+from django.core.paginator import Paginator
 
 # ***********************************************************
 
 class ArticlesListView(ListView):
+    paginate_by = 2
     model = Article
 
     def get_context_data(self, **kwargs):
@@ -24,26 +24,41 @@ class ArticlesListView(ListView):
 def CategoryListView(request, slug):
     category = Category.objects.get(slug=slug)
     object_list = category.articles.all()
+    paginator = Paginator(object_list, 2)
+
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+
     txt1 = "Articles of this category:"
     txt2 = category.title
-    return render(request, "blog/article_list.html", context={"object_list": object_list, "txt1": txt1, "txt2": txt2})
+    return render(request, "blog/article_list.html", context={"object_list": object_list, "txt1": txt1, "txt2": txt2, "page_obj": page_obj})
 
 # ***********************************************************
 
 def AuthorArticlesListView(request, slug):
     author = Author.objects.get(slug=slug)
     object_list = author.articles.all()
+    paginator = Paginator(object_list, 2)
+
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+
     txt1 = "Articles of this author:"
     txt2 = author.nickname
-    return render(request, "blog/article_list.html", context={"object_list": object_list, "txt1": txt1, "txt2": txt2})
+    return render(request, "blog/article_list.html", context={"object_list": object_list, "txt1": txt1, "txt2": txt2, "page_obj": page_obj})
 
 # ***********************************************************
 
 def AuthorListView(request):
     authors = Author.objects.all()
+    paginator = Paginator(authors, 2)
+
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+
     txt1 = "All authors"
     txt2 = "All our authors"
-    return render(request, "blog/authors_list.html", context={"object_list": authors, "txt1": txt1, "txt2": txt2})
+    return render(request, "blog/authors_list.html", context={"object_list": authors, "txt1": txt1, "txt2": txt2, "page_obj": page_obj})
 
 # ***********************************************************
 
