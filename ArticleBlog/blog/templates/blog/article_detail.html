@@ -38,6 +38,7 @@
                           <li><a href="{% url 'blog:author-articles' object.author.slug %}">{{ object.author }}</a></li>
                           <li><a href="#">last update: {{ object.updated }}</a></li>
                           <li><a href="#">10 Comments</a></li>
+                          <li><a href="{% url 'blog:edit-article' object.slug %}" class="p-1 bg-warning text-white rounded">Edit</a></li>
                         </ul>
 
                         <p>{{ object.body }}</p>

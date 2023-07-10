@@ -1,12 +1,12 @@
 from typing import Any
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView, DetailView, FormView
-from .forms import AddArticleForm
+from .forms import AddArticleForm, EditArticleForm
 from .models import Article, Category
 from account.models import Author
 from django.http import Http404, HttpRequest, HttpResponse
 
-
+# ***********************************************************
 
 class ArticlesListView(ListView):
     model = Article
@@ -19,7 +19,7 @@ class ArticlesListView(ListView):
         context["txt2"] = "Our recent blog entries"
         return context
 
-
+# ***********************************************************
 
 def CategoryListView(request, slug):
     category = Category.objects.get(slug=slug)
@@ -28,7 +28,7 @@ def CategoryListView(request, slug):
     txt2 = category.title
     return render(request, "blog/article_list.html", context={"object_list": object_list, "txt1": txt1, "txt2": txt2})
 
-
+# ***********************************************************
 
 def AuthorArticlesListView(request, slug):
     author = Author.objects.get(slug=slug)
@@ -37,7 +37,7 @@ def AuthorArticlesListView(request, slug):
     txt2 = author.nickname
     return render(request, "blog/article_list.html", context={"object_list": object_list, "txt1": txt1, "txt2": txt2})
 
-
+# ***********************************************************
 
 def AuthorListView(request):
     authors = Author.objects.all()
@@ -45,12 +45,12 @@ def AuthorListView(request):
     txt2 = "All our authors"
     return render(request, "blog/authors_list.html", context={"object_list": authors, "txt1": txt1, "txt2": txt2})
 
-
+# ***********************************************************
 
 class ArticleDetailView(DetailView):
     model = Article
 
-
+# ***********************************************************
 
 class AddArticleView(FormView):
     template_name = "blog/add_article.html"
@@ -74,3 +74,20 @@ class AddArticleView(FormView):
             return redirect(self.success_url)
 
         return render(request, self.template_name, {"form": form})
+    
+# ***********************************************************
+
+def EditArticleView(request, slug):
+    instance = get_object_or_404(Article, slug=slug)
+    if request.method == "POST":
+        form = EditArticleForm(request.POST, request.FILES, instance=instance)
+        if form.is_valid():
+            form.save()
+            return redirect("blog:article-detail", slug=slug)
+    
+    else:
+        if (not request.user.is_authenticated) or instance.author != request.user.author:
+            return redirect("home:home")
+        form = EditArticleForm(instance=instance)
+
+    return render(request, 'blog/add_article.html', {'form':form})

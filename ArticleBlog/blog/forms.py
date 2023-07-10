@@ -14,3 +14,15 @@ class AddArticleForm(ModelForm):
             'title': Textarea(attrs={'class': 'input100', 'style': 'width:390px; height:30px'}),
             'body': Textarea(attrs={'class': 'input100', 'style': 'width:390px; height:300px'}),
         }
+
+
+
+class EditArticleForm(ModelForm):
+
+    class Meta:
+        model = Article
+        fields = ["image", "title", "body", "category"]
+        widgets = {
+            'title': Textarea(attrs={'class': 'input100', 'style': 'width:390px; height:30px'}),
+            'body': Textarea(attrs={'class': 'input100', 'style': 'width:390px; height:300px'}),
+        }

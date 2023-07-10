@@ -41,6 +41,9 @@
                                 <li><a href="{% url 'blog:author-articles' article.author.slug %}">{{ article.author }}</a></li>
                                 <li><a>last update: {{ article.updated }}</a></li>
                                 <li><a>12 Comments</a></li>
+                                {% if article.author == user.author %}
+                                  <li><a href="{% url 'blog:edit-article' article.slug %}" class="p-1 bg-warning text-white rounded">Edit</a></li>
+                                {% endif %}
                                 </ul>
                                 <p>{{ article.body }}</p>
                                 <div class="post-options">
