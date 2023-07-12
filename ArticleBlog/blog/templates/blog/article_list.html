@@ -28,7 +28,7 @@
               <div class="all-blog-posts">
                 <div class="row">
 
-                    {% for article in object_list %}
+                    {% for article in page_obj %}
                         <div class="col-lg-6">
                             <div class="blog-post">
                             <div class="blog-thumb">
@@ -40,7 +40,7 @@
                                 <ul class="post-info">
                                 <li><a href="{% url 'blog:author-articles' article.author.slug %}">{{ article.author }}</a></li>
                                 <li><a>last update: {{ article.updated }}</a></li>
-                                <li><a>12 Comments</a></li>
+                                <li><a>{{ article.comments.count }} Comments</a></li>
                                 {% if article.author == user.author %}
                                   <li><a href="{% url 'blog:edit-article' article.slug %}" class="p-1 bg-warning text-white rounded">Edit</a></li>
                                 {% endif %}

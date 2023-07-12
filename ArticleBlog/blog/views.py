@@ -45,7 +45,7 @@ def AuthorArticlesListView(request, slug):
 
     txt1 = "Articles of this author:"
     txt2 = author.nickname
-    return render(request, "blog/article_list.html", context={"object_list": object_list, "txt1": txt1, "txt2": txt2, "page_obj": page_obj})
+    return render(request, "blog/article_list.html", context={"txt1": txt1, "txt2": txt2, "page_obj": page_obj})
 
 # ***********************************************************
 

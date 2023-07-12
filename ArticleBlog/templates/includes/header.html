@@ -29,7 +29,7 @@
 
             {% if request.user.is_authenticated %}
               
-              <li class="nav-item {% if request.resolver_match.url_name == 'author-articles'%}active{% endif %}">
+              <li class="nav-item {% if request.resolver_match.url_name == 'author-articles' and user.author.slug == request.resolver_match.kwargs.slug %}active{% endif %}">
                 <a class="nav-link" href="{% url 'blog:author-articles' user.author.slug %}">My Articles</a>
               </li>
 

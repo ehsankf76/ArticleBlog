@@ -38,3 +38,16 @@ class Article(models.Model):
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
         super(Article, self).save(*args, **kwargs)
+
+
+
+class Comment(models.Model):
+    txt = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name="comments")
+    author = models.ForeignKey(Author, on_delete=models.CASCADE, related_name="comments")
+    parent_id = models.ForeignKey("self", on_delete=models.CASCADE, related_name="replies", blank=True, null=True)
+
+    def __str__(self):
+        return self.txt[:20]
