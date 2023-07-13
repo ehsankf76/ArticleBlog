@@ -1,9 +1,12 @@
+from typing import Any
+from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView, DetailView, FormView
 from .forms import AddArticleForm, EditArticleForm
-from .models import Article, Category
+from .models import Article, Category, Comment
 from account.models import Author
 from django.core.paginator import Paginator
+from django.urls import reverse
 
 # ***********************************************************
 
@@ -62,8 +65,18 @@ def AuthorListView(request):
 
 # ***********************************************************
 
-class ArticleDetailView(DetailView):
-    model = Article
+def ArticleDetailView(request, slug):
+    object = Article.objects.get(slug=slug)
+    if request.method == "POST":
+        txt = request.POST.get("txt")
+        parent_id = request.POST.get("reply")
+        if parent_id=="null":
+            Comment.objects.create(txt=txt, article=object, author=request.user.author)
+        else:
+            parent = Comment.objects.get(id=parent_id)
+            Comment.objects.create(txt=txt, article=object, author=request.user.author, parent_id=parent)
+        
+    return render(request, "blog/article_detail.html", context={"object": object})
 
 # ***********************************************************
 
