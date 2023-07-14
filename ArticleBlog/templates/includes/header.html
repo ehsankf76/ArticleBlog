@@ -47,6 +47,9 @@
                 <li class="nav-item">
                   <a href="{% url 'account:logout' %}" class="p-1 bg-danger text-white rounded">logout</a>
                 </li>
+                <li class="nav-item">
+                  <a href="{% url 'account:edit-user' user.author.slug %}" class="p-1 bg-warning text-white rounded">Edit Profile</a>
+                </li>
             {% else %}
               <li class="nav-item">
                 <a href="{% url 'account:login' %}" class="p-1 bg-success text-white rounded">login</a><span> /</span>

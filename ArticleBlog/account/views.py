@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.models import User
 from .models import Author
 from .forms import LoginForm, RegisterFormAuthor, RegisterFormUser
@@ -51,4 +51,31 @@ def Register(request):
     else:
         form_user = RegisterFormUser()
         form_author = RegisterFormAuthor()
+    return render(request, "account/register.html", context={"form_user":form_user, "form_author":form_author})
+
+
+
+def EditUser(request, slug):
+    instance_author = get_object_or_404(Author, slug=slug)
+    instance_user = instance_author.user
+    if request.method == "POST":
+        form_author = RegisterFormAuthor(request.POST, request.FILES, instance=instance_author)
+        form_user = RegisterFormUser(request.POST, request.FILES, instance=instance_user)
+        if form_user.is_valid() and form_author.is_valid():
+            # form_user
+            user = form_user.save()
+
+            # form_author
+            author = form_author.save(commit=False)
+            author.user = user
+            author.save()
+
+        login(request, user)
+        return redirect("home:home")
+    else:
+        if (not request.user.is_authenticated) or instance_author.user != request.user:
+            return redirect("home:home")
+        form_author = RegisterFormAuthor(instance=instance_author)
+        form_user = RegisterFormUser(instance=instance_user)
+
     return render(request, "account/register.html", context={"form_user":form_user, "form_author":form_author})
