@@ -80,24 +80,35 @@
                       
                       <div class="content">
                         <ul>
-                          <li>
-                            <div class="author-thumb">
-                              <img src="{% static 'images/comment-author-01.jpg' %}" alt="">
-                            </div>
-                            <div class="right-content">
-                              <h4>Charles Kate<span>May 16, 2020</span></h4>
-                              <p>Fusce ornare mollis eros. Duis et diam vitae justo fringilla condimentum eu quis leo. Vestibulum id turpis porttitor sapien facilisis scelerisque. Curabitur a nisl eu lacus convallis eleifend posuere id tellus.</p>
-                            </div>
-                          </li>
-                          <li class="replied">
-                            <div class="author-thumb">
-                              <img src="{% static 'images/comment-author-02.jpg' %}" alt="">
-                            </div>
-                            <div class="right-content">
-                              <h4>Thirteen Man<span>May 20, 2020</span></h4>
-                              <p>In porta urna sed venenatis sollicitudin. Praesent urna sem, pulvinar vel mattis eget.</p>
-                            </div>
-                          </li>
+                          
+                          {% for comment in object.comments.all %}
+                            {% if not comment.parent_id %}
+                              <li>
+                                <div class="author-thumb">
+                                  <img src="{{ comment.author.image.url }}" alt="" width="90 px" height="90 px" class="rounded-circle shadow-4-strong">
+                                </div>
+                                <div class="right-content">
+                                  <h4>{{ comment.author.nickname }}<span>{{ comment.created_at }}</span></h4>
+                                  <p>{{ comment.txt }}</p>
+                                </div>
+                              </li>
+                              {% for reply in object.comments.all %}
+                                {% if reply.parent_id == comment %}
+                                  <li class="replied">
+                                    <div class="author-thumb">
+                                      <img src="{{ reply.author.image.url }}" alt="" width="90 px" height="90 px" class="rounded-circle shadow-4-strong">
+                                    </div>
+                                    <div class="right-content">
+                                      <h4>{{ reply.author.nickname }}<span>{{ reply.created_at }}</span></h4>
+                                      <p>{{ reply.txt }}</p>
+                                    </div>
+                                  </li>
+                                {% endif %}
+                              {% endfor %}
+                              <br>
+                            {% endif %}
+                          {% endfor %}
+                          
                         </ul>
                       </div>
 
@@ -120,7 +131,9 @@
                                   <select id="reply" name="reply" class="form-control" style="width: 200px;">
                                     <option value="null" selected>---------</option>
                                     {% for comment in object.comments.all %}
-                                    <option value="{{ comment.id }}">{{ comment }}</option>
+                                      {% if not comment.parent_id %}
+                                        <option value="{{ comment.id }}">{{ comment }}</option>
+                                      {% endif %}
                                     {% endfor %}
                                   </select>
                                 </fieldset>
