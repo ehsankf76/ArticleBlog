@@ -24,6 +24,20 @@ class ArticlesListView(ListView):
 
 # ***********************************************************
 
+def ArticleSearchView(request):
+    searched = request.GET.get("searched", None)
+    object_list = Article.objects.filter(title__icontains=searched)|Article.objects.filter(body__icontains=searched)
+    paginator = Paginator(object_list, 2)
+
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+
+    txt1 = "The result of your search"
+    txt2 = f"You have searched for \"{searched}\"."
+    return render(request, "blog/article_list.html", context={"txt1": txt1, "txt2": txt2, "page_obj": page_obj})
+
+# ***********************************************************
+
 def CategoryListView(request, slug):
     category = Category.objects.get(slug=slug)
     object_list = category.articles.all()
@@ -34,7 +48,7 @@ def CategoryListView(request, slug):
 
     txt1 = "Articles of this category:"
     txt2 = category.title
-    return render(request, "blog/article_list.html", context={"object_list": object_list, "txt1": txt1, "txt2": txt2, "page_obj": page_obj})
+    return render(request, "blog/article_list.html", context={"txt1": txt1, "txt2": txt2, "page_obj": page_obj})
 
 # ***********************************************************
 
@@ -61,7 +75,7 @@ def AuthorListView(request):
 
     txt1 = "All authors"
     txt2 = "All our authors"
-    return render(request, "blog/authors_list.html", context={"object_list": authors, "txt1": txt1, "txt2": txt2, "page_obj": page_obj})
+    return render(request, "blog/authors_list.html", context={"txt1": txt1, "txt2": txt2, "page_obj": page_obj})
 
 # ***********************************************************
 
